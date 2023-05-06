@@ -1,9 +1,20 @@
 # Zsh config for MacOS and GNU/Linux desktop
-# This file contains most important stuff, see also platform specific files for more.
+# Contains common and platform specific hacky aliases etc to keep some compatibility.
 
-export PATH="$PATH:$HOME/bin"
+# Also using https://github.com/darksonic37/linuxify/ on MacOS.
+# For extra zsh plugin management (native zsh, not oh-my-zsh) use https://github.com/zplug/zplug
+
+## .zshrc notes
+# These are not saved to repo now but generally useful plugins are:
+#   plugins=(sudo last-working-dir git autojump extract)
+# And for MacOS plugin 'osx' and for Debian based distros 'debian'.
+
+
+export PATH="$PATH:$HOME/bin"  # see https://github.com/jasalt/bin
+
 
 ### ZSH options
+
 # Enable character expansion
 setopt braceccl
 # Allow empty glob entries
@@ -22,16 +33,17 @@ source `dirname "$0"`/completion/wp-completion.bash  # TODO usable with containe
 # Rebind kill-region for zsh
 bindkey '^w' kill-region
 
-### Misc aliases
+
+### Aliases
+alias rp="source ~/.zshrc" # Reload shell profile
+
+## Clipboard and file manager utilities
 alias cdd="cd ~/Desktop/"
 alias sl="ls"
 
 if [ $(uname -s) = "Linux" ]; then alias open="xdg-open"; fi  # Mac `open` command for Linux
-
 alias o="open ."  # Open current path open in shell in file manager
-alias rp="source ~/.zshrc" # Reload shell profile
 
-### Clipboard and file manager utilities
 # Using `cb` as generic command for copying stuff to clipboard
 if [ $(uname -s) = "Linux" ]; then
     # TODO
@@ -84,7 +96,6 @@ fi
 # Copy SSH public key quickly to clipboard to paste it somewhere, 
 # see ssh-copy-id command when working directly with ssh-remotes.
 alias cbssh="cat ~/.ssh/id_rsa.pub|cb"  # TODO update to ecdsa key
-
 
 ### Networking helpers
 # Echo public IP

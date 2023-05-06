@@ -1,11 +1,10 @@
-# Fork Info (WIP)
+# Fork Info 
 Shell config imported from earlier dotfiles monorepo. See my stuff in [common.zsh](https://github.com/jasalt/.oh-my-zsh/blob/master/custom/common.zsh) file in [custom](https://github.com/jasalt/.oh-my-zsh/tree/master/custom) folder.
 
 To install follow the [manual installation method](https://github.com/jasalt/.oh-my-zsh#manual-installation) after installing `zsh`.
 
 ## TODO
-- Fix file paths
-- Cleanup
+May be slightly broken on Linux, not tested after restructuring this repo and needs testing.
 
 # Original README content
 
