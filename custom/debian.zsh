@@ -1,5 +1,8 @@
 # Shared shell configuration for debian systems. Sourced from eg. shell-mint.sh
 
+# don't execute script if not on linux without exiting shell
+if [ ! $(uname -s) = "Linux" ]; then return; fi
+
 alias o="open ."
 export PATH="$PATH:$HOME/dotfiles/linux/bin"
 
@@ -25,7 +28,7 @@ alias sega="espeak -v europe/sv"
 # Copy most recent command in bash history
 # alias cbhs="cat $HISTFILE | tail -n 2 | cb"
 
-
+## for ubuntu
 addppa () {
 sudo add-apt-repository $1 
 sudo apt-get update
@@ -33,5 +36,3 @@ sudo apt-get update
 
 alias postgre-start="sudo service postgresql start"
 alias postgre-stop="sudo service postgresql stop"
-
-source $HOME/dotfiles/shell/shell-common.sh

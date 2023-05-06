@@ -1,17 +1,10 @@
 ## Bash/Zsh modifications for Linux/OSX
-# On OSX source this from .zshrc
-# On Linux source a distro-specific file instead (eg. shell-mint.sh)  
 
-source ~/dotfiles/shell/shell-python.sh
+# export PATH="$PATH:$HOME/.bin:$HOME/dotfiles/bin"
 
-export PATH="$PATH:$HOME/.bin:$HOME/dotfiles/bin"
 # CDPATH=:$HOME/
 
-# Prefix functions for applying conditionally based on system type
-onlinux () { [ $(uname -s) = "Linux" ] && $* }
-onmac () { [ $(uname -s) = "Darwin" ] && $* }
-# Eg. `onmac echo "Yes!" && echo "No!"`
-# Should echo Yes! and No! on Mac and do nothing on Linux.
+### ZSH options
 
 # Enable character expansion
 setopt braceccl
@@ -30,6 +23,8 @@ source ~/dotfiles/shell/completion/wp-completion.bash
 
 # Rebind kill-region for zsh
 bindkey '^w' kill-region
+
+### Aliases
 
 # Reload shell profile
 alias rp="source ~/.zshrc"
@@ -112,5 +107,5 @@ sudo-command-line() {
 }
 #zle -N sudo-command-line
 # Defined shortcut keys: [Esc] [Esc]
-source ~/dotfiles/shell/shell-fun.zsh
+# source ~/dotfiles/shell/shell-fun.zsh
 
