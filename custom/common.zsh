@@ -17,7 +17,7 @@ autoload bashcompinit
 bashcompinit
 
 # wp-cli completion
-source ~/dotfiles/shell/completion/wp-completion.bash
+source `dirname "$0"`/completion/wp-completion.bash  # TODO usable with containers?
 
 # Rebind kill-region for zsh
 bindkey '^w' kill-region
@@ -89,14 +89,13 @@ alias cbssh="cat ~/.ssh/id_rsa.pub|cb"  # TODO update to ecdsa key
 ### Networking helpers
 # Echo public IP
 alias myip="curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'"
-# List open ports
-alias ports="lsof -Pni4 | grep LISTEN"
+alias ports="lsof -Pni4 | grep LISTEN"  # List open ports
 alias speedtest="ping -c 3 www.funet.fi && wget -O /dev/null ftp://ftp.funet.fi/dev/100Mnull > /dev/null"
 
 # Download subtitles, requires sudo pip install subliminal
 alias sub="subliminal download -l en"
 
-## These git are on ohmyzsh git plugin
+## These git are from ohmyzsh git plugin
 # alias ga="git add"
 # alias gp="git push"
 # alias gl="git pull"
