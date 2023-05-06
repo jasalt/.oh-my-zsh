@@ -1,5 +1,5 @@
 # Fork Info (WIP)
-Shell config imported from earlier dotfiles monorepo. See my stuff in `custom` folder.
+Shell config imported from earlier dotfiles monorepo. See my stuff in `common.zsh` file in `custom` folder.
 
 To install follow the [manual installation method](https://github.com/jasalt/.oh-my-zsh#manual-installation) after installing `zsh`.
 
