@@ -1,11 +1,9 @@
-## Bash/Zsh modifications for Linux/OSX
+# Zsh config for MacOS and GNU/Linux desktop
+# This file contains most important stuff, see also platform specific files for more.
 
-# export PATH="$PATH:$HOME/.bin:$HOME/dotfiles/bin"
-
-# CDPATH=:$HOME/
+export PATH="$PATH:$HOME/bin"
 
 ### ZSH options
-
 # Enable character expansion
 setopt braceccl
 # Allow empty glob entries
@@ -24,12 +22,23 @@ source ~/dotfiles/shell/completion/wp-completion.bash
 # Rebind kill-region for zsh
 bindkey '^w' kill-region
 
-### Aliases
-
-# Reload shell profile
-alias rp="source ~/.zshrc"
+### Misc aliases
+alias cdd="cd ~/Desktop/"
 alias sl="ls"
-alias e="mg"   # Micro Gnu Emacs
+
+if [ $(uname -s) = "Linux" ]; then alias open="xdg-open"; fi  # Mac `open` command for Linux
+
+alias o="open ."  # Open current path open in shell in file manager
+alias rp="source ~/.zshrc" # Reload shell profile
+
+### Clipboard and file manager utilities
+# Using `cb` as generic command for copying stuff to clipboard
+if [ $(uname -s) = "Linux" ]; then
+    # TODO
+elif [ $(uname -s) = "Darwin" ]; then
+    alias cb="clipcopy"
+    alias cbp="clippaste"
+fi
 
 function abspath() {
     # generate absolute path from relative path
@@ -48,21 +57,34 @@ function abspath() {
     fi
 }
 
-alias pfp="abspath"
-alias cbfp="$(abspath $1) | pbcopy"
+alias cbwd="pwd|cb"  # copy shell working directory to clipboard
+alias pfp="abspath"  # print shell file path
+alias cbfp="$(abspath $1) | cb"  # copy shell file path to clipboard 
 
-alias cdd="cd ~/Desktop/"
+if [ $(uname -s) = "Linux" ]; then
+    # TODO
+elif [ $(uname -s) = "Darwin" ]; then
 
-# alias finddir='sudo find / -type d -name'
-# alias findfile='sudo find / -type  -name'
+# print finder directory
+function pfd() {
+    osascript 2>/dev/null <<EOF
+    tell application "Finder"
+    return POSIX path of (target of window 1 as alias)
+    end tell
+EOF
+}
 
-alias cb="clipcopy"
-alias cbp="clippaste"
+# cd to finder directory
+function cdf() {
+    cd "$(pfd)"
+}
 
-alias cbssh="cat ~/.ssh/id_rsa.pub|cb"
-    
-# Download subtitles, requires sudo pip install subliminal
-alias sub="subliminal download -l en"
+fi
+
+# Copy SSH public key quickly to clipboard to paste it somewhere, 
+# see ssh-copy-id command when working directly with ssh-remotes.
+alias cbssh="cat ~/.ssh/id_rsa.pub|cb"  # TODO update to ecdsa key
+
 
 ### Networking helpers
 # Echo public IP
@@ -71,20 +93,61 @@ alias myip="curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 
 alias ports="lsof -Pni4 | grep LISTEN"
 alias speedtest="ping -c 3 www.funet.fi && wget -O /dev/null ftp://ftp.funet.fi/dev/100Mnull > /dev/null"
 
-alias get-mp3="youtube-dl --extract-audio --audio-format mp3"
-alias get-ogg="youtube-dl --extract-audio --audio-format vorbis"
+# Download subtitles, requires sudo pip install subliminal
+alias sub="subliminal download -l en"
 
-## These are on ohmyzsh
+## These git are on ohmyzsh git plugin
 # alias ga="git add"
 # alias gp="git push"
 # alias gl="git pull"
 # alias gc="git commit"
 # alias gcm="git commit -m"
 
-alias qc="git commit -a -m 'up' && git push"
+# Package manager aliases
+if [ $(uname -s) = "Linux" ]; then  
+    alias aup="sudo apt update"
+    alias aug="sudo apt upgrade"
+    alias ai="sudo apt install"
+    alias as="sudo apt search"
+    alias alog="less /var/log/apt/history.log"
+    addppa () {
+        # Add PPA Repository on Ubuntu
+        sudo add-apt-repository $1 
+        sudo apt-get update
+    }
+elif [ $(uname -s) = "Darwin" ]; then
+    alias aup="brew update"
+    alias aug="brew upgrade"
+    alias ai="brew install"
+    alias ar="brew uninstall"
+    alias as="brew search"
+    alias ass="brew cask search"
+    alias cask="brew cask"
+    alias aii="brew install --cask"
+fi
 
-# BFG Repo Cleaner https://rtyley.github.io/bfg-repo-cleaner/
-alias bfg="java -jar ~/dotfiles/bin/bfg-1.11.8.jar"
+# PostgreSQL database startup/shutdown aliases
+if [ $(uname -s) = "Linux" ]; then  
+    alias postgre-start="sudo service postgresql start"
+    alias postgre-stop="sudo service postgresql stop"
+elif [ $(uname -s) = "Darwin" ]; then
+    alias pgup="pg_ctl -D /usr/local/var/postgres start"
+    alias pgdown="pg_ctl -D /usr/local/var/postgres stop"
+fi
+
+# Speech to text aliases for different languages
+if [ $(uname -s) = "Linux" ]; then  
+    alias say="espeak"
+    alias sano="espeak -v europe/fi"
+    alias sega="espeak -v europe/sv"
+elif [ $(uname -s) = "Darwin" ]; then
+    alias sano="say -v \"Satu\""
+    alias sega="say -v \"Oskar\""
+fi
+
+if [ $(uname -s) = "Linux" ]; then  
+elif [ $(uname -s) = "Darwin" ]; then
+fi
 
 ### Language translation utilities
 # See also: Linux selection hotkeys on sxhkd config
@@ -96,16 +159,59 @@ alias tf="trans en:fi"
 alias ts="trans fi:sv"
 alias stf="trans sv:fi"
 
-# ESC-ESC to sudo last command
-sudo-command-line() {
-    [[ -z $BUFFER ]] && zle up-history
-    if [[ $BUFFER == sudo\ * ]]; then
-        LBUFFER="${LBUFFER#sudo }"
-    else
-        LBUFFER="sudo $LBUFFER"
-    fi
-}
+# # ESC-ESC to sudo last command, already in ohmyzsh sudo plugin
+# sudo-command-line() {
+#     [[ -z $BUFFER ]] && zle up-history
+#     if [[ $BUFFER == sudo\ * ]]; then
+#         LBUFFER="${LBUFFER#sudo }"
+#     else
+#         LBUFFER="sudo $LBUFFER"
+#     fi
+# }
 #zle -N sudo-command-line
 # Defined shortcut keys: [Esc] [Esc]
 # source ~/dotfiles/shell/shell-fun.zsh
 
+# Misc MacOS aliases
+if [ $(uname -s) = "Darwin" ]; then
+
+### Linux command compatibility
+alias lsblk="diskutil list"
+alias lsusb="system_profiler SPUSBDataType"
+
+alias myipwlan=ipconfig getifaddr en1
+alias myiplan=ipconfig getifaddr en0
+
+alias fixui="killall -KILL Dock"
+alias fixui!="sudo killall -HUP WindowServer"
+
+function pfs() {
+    osascript 2>/dev/null <<EOF
+    set output to ""
+    tell application "Finder" to set the_selection to selection
+    set item_count to count the_selection
+    repeat with item_index from 1 to count the_selection
+    if item_index is less than item_count then set the_delimiter to "\n"
+    if item_index is item_count then set the_delimiter to ""
+    set output to output & ((item item_index of the_selection as alias)'s POSIX path) & the_delimiter
+    end repeat
+EOF
+}
+
+function pushdf() {
+    pushd "$(pfd)"
+}
+
+function quick-look() {
+    (( $# > 0 )) && qlmanage -p $* &>/dev/null &
+}
+
+function man-preview() {
+    man -t "$@" | open -f -a Preview
+}
+
+function vncviewer() {
+    open vnc://$@
+}
+
+fi
