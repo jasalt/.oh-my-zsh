@@ -1,3 +1,14 @@
+# Fork Info (WIP)
+Shell config imported from earlier dotfiles monorepo. See my stuff in `custom` folder.
+
+To install follow the [manual installation method](https://github.com/jasalt/.oh-my-zsh#manual-installation) after installing `zsh`.
+
+## TODO
+- Fix file paths
+- Cleanup
+
+# Original README content
+
 <p align="center"><img src="https://ohmyzsh.s3.amazonaws.com/omz-ansi-github.png" alt="Oh My Zsh"></p>
 
 Oh My Zsh is an open source, community-driven framework for managing your [zsh](https://www.zsh.org/) configuration.
