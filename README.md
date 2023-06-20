@@ -1,14 +1,9 @@
 # ZSH Shell Config
-ZSH is a shell. It has few usability niceties compared to standard bash while keeping full compatibility so it doesn't get in the way when writing automation scripts that run elsewhere. 
 
-Oh My Zsh is a nice "starter config pack" and while it's bit on a bloated side I haven't had time and/or motivation to optimize.
-Prezto or oh-my-bash are something I might try out if I was building this setup from scratch again but running with this for now. Currently a new terminal opens in about 3 seconds of which some programming language package manager tools etc take a large part.
+ZSH is a bash compatible shell with few usability niceties. Oh My Zsh is a nice "starter config pack" for it and while it's bit on a bloated side I haven't had time and/or motivation to optimize further after few failed attempts to move to Prezto or oh-my-bash. Currently a new terminal opens in about 3 seconds of which some programming language package manager tools etc usually take most part anyways.
 
-Preferred terminal applications are iTerm2, Terminator and Konsole.
+[jasalt/bin](https://github.com/jasalt/bin) repo also has some shell utility scripts which do little bit more than aliases this repo covers.
 
-Also see repo for [*nix executables](https://github.com/jasalt/bin) which do little bit more than aliases this repo mostly covers. This is sourced by default from `~/bin` path through this config.
-
-Some useful command line tools are also listed in my [starred utilities list](https://github.com/stars/jasalt/lists/utilities).
 ## Fork info
 
 Shell config is imported from earlier dotfiles monorepo. My custom aliases and functions are in [common.zsh](https://github.com/jasalt/.oh-my-zsh/blob/master/custom/common.zsh) file in [custom](https://github.com/jasalt/.oh-my-zsh/tree/master/custom) sub-folder.
