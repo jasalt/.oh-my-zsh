@@ -41,12 +41,23 @@ alias rp="source ~/.zshrc" # Reload shell profile
 alias cdd="cd ~/Desktop/"
 alias sl="ls"
 
-if [ $(uname -s) = "Linux" ]; then alias open="xdg-open"; fi  # Mac `open` command for Linux
-alias o="open ."  # Open current path open in shell in file manager
+# Mac `open` command for Linux using xdg-open
+if [ $(uname -s) = "Linux" ]; then 
+  function open() { xdg-open "$1" &> /dev/null; }  # Suppressing output
+fi  
+
+# Open current path or argument path with relevant program
+function o() {
+    if [ -n "$1" ]; then
+        open "$1"
+    else
+        open .
+    fi
+}
 
 # Using `cb` as generic command for copying stuff to clipboard
 if [ $(uname -s) = "Linux" ]; then
-    # TODO
+  # TODO 
 elif [ $(uname -s) = "Darwin" ]; then
     alias cb="clipcopy"
     alias cbp="clippaste"
