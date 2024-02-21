@@ -12,6 +12,7 @@
 
 export PATH="$PATH:$HOME/bin"  # see https://github.com/jasalt/bin
 
+export CHATBLADE_THEME="emacs"  # accepts https://pygments.org/styles/
 
 ### ZSH options
 
