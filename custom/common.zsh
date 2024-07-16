@@ -118,7 +118,9 @@ alias speedtest="ping -c 3 www.funet.fi && wget -O /dev/null ftp://ftp.funet.fi/
 # Download subtitles, requires sudo pip install subliminal
 alias sub="subliminal download -l en"
 
-## These git are from ohmyzsh git plugin
+alias tsvlens="csvlens -t"
+
+## These are from ohmyzsh git plugin
 # alias ga="git add"
 # alias gp="git push"
 # alias gl="git pull"
